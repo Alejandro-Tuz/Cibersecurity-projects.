@@ -20,7 +20,7 @@ El proyecto está dividido en tres partes principales:
 ## Documentación
 La documentación completa está en la carpeta `documentacion/`:
 - [Resumen del Proyecto](docs/Resumen_proyecto.pdf)
-- [Infraestructura](infraestructura/Documentación de Infraestructura.pdf)
+- [Infraestructura](infraestructura/Documentación_de_Infraestructura.pdf)
 
 
 ## Autores:
