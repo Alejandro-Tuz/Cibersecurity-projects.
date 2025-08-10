@@ -1,0 +1,89 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LandingHeader from "../components/LandingHeader.astro";
+import "../styles/global.css";
+---
+
+<Layout>
+  <section
+    class="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#040405] via-[#042B0F] to-[#12FF3F]"
+  >
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+      <div class="mb-6 text-center">
+        <img src="/img/parabolic-ellipse.png" alt="Logo" class="mx-auto h-16" />
+        <h1 class="text-2xl font-bold">Login</h1>
+        <p class="text-gray-600">Aprovecha de nuestros servicios</p>
+      </div>
+      <form id="login-form">
+        <div class="mb-4 flex items-center border rounded px-3">
+          <i class="fa-solid fa-envelope text-gray-400 mr-2"></i>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            class="w-full py-2 outline-none"
+            required
+          />
+        </div>
+        <div class="mb-4 flex items-center border rounded px-3">
+          <i class="fa-solid fa-lock text-gray-400 mr-2"></i>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            class="w-full py-2 outline-none"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+          >Sign in</button
+        >
+      </form>
+      <div class="mt-4 text-center">
+        <p class="text-sm text-gray-600">
+          ¿Problemas con tus datos de ingreso?
+        </p>
+        <a href="#" class="text-sm text-green-600 hover:underline"
+          >Contáctanos</a
+        >
+      </div>
+    </div>
+  </section>
+  <script is:raw>
+    window.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("login-form");
+      if (!form) return;
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const email = form.querySelector('input[name="email"]').value;
+        const password = form.querySelector('input[name="password"]').value;
+
+        try {
+          const response = await fetch("http://localhost:3001/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            localStorage.setItem("token", result.token);
+            window.location.href = "/Plataforma_gestion";
+          } else {
+            alert("Credenciales inválidas. Intenta nuevamente.");
+          }
+        } catch (error) {
+          console.error("Error de conexión:", error);
+          alert("Error al conectarse con el servidor.");
+        }
+      });
+    });
+  </script>
+</Layout>

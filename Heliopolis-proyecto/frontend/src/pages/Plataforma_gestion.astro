@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Sidebar from "../components/Sidebar.jsx";
+import { SidebarItem } from "../components/Sidebar.jsx";
+import { Home, User, Settings } from "lucide-react";
+import "../styles/global.css";
+import SidebarO from "../components/SidebarO";
+---
+
+<Layout>
+  <style>
+    body.loading #contenido-protegido {
+      display: none;
+    }
+  </style>
+
+  <script is:raw>
+    document.body.classList.add("loading");
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "/";
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:3001/api/protected", {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.message) {
+          localStorage.removeItem("token"); // opcional
+          window.location.href = "/";
+        } else {
+          document.body.classList.remove("loading");
+        }
+      } catch (error) {
+        console.error("Fallo al verificar token:", error);
+        localStorage.removeItem("token"); // opcional
+        window.location.href = "/";
+      }
+    });
+  </script>
+
+  <div id="contenido-protegido" class="flex h-screen">
+    <SidebarO client:load />
+  </div>
+</Layout>

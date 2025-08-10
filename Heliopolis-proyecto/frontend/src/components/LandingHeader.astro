@@ -1,0 +1,30 @@
+---
+import Logo from "./Logo.astro";
+
+---
+
+<header
+  id="landing-header"
+  class="py-3 px-10 flex items-center fixed top-0 w-full justify-between z-40 text-green-500"
+>
+  <div class="flex flex-grow basis-0">
+    <Logo />
+  </div>
+  <nav>
+    <ul
+      class="flex text-xl [&>li>a]:text-green-500 [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]: py-2"
+    >
+      <li><a href="#">Proyectos</a></li>
+      <li><a href="#">Sostenibilidad</a></li>
+      <li><a href="#">Nosotros</a></li>
+    </ul>
+  </nav>
+  <nav class="flex flex-grow justify-end basis-0">
+    <ul
+      class="flex text-xl [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:text-green-500 [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]: py-2"
+    >
+      <li><a href="#">Soporte</a></li>
+      <a href="/Login">Ingreso a plataforma</a>
+    </ul>
+  </nav>
+</header>
